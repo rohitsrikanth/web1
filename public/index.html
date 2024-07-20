@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select the following</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+        }
+
+        .select-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .select-container select {
+            margin: 10px 0;
+            padding: 10px;
+            width: 200px;
+            font-size: 16px;
+        }
+
+        .btn-go, .btn-go1 {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: blue;
+            color: #fff;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .btn-go:hover, .btn-go1:hover {
+            background-color: #a7a4c9;
+        }
+
+        #file-upload {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #file-upload input[type="file"] {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select the following</h1>
+    <div class="container">
+        <div class="select-container">
+            <select class="sel" id="Month" name="Month">
+                <option value="Month">MONTH</option>
+                <option value="January">January</option>
+                <option value="Febraury">Febraury</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+            <select class="sel" id="Grade" name="Grade">
+                <option value="Grade">GRADE</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            <select class="sel" id="Subject" name="Subject">
+                <option value="Subject">SUBJECT</option>
+                <option value="Maths">Maths</option>
+                <option value="English">English</option>
+                <option value="Physics">Physics</option>
+                <option value="Tamil">Tamil</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Computer Science">Computer Science</option>
+            </select>
+            <button class="btn-go1" id="go-btn">Next</button>
+        </div>
+        <div id="file-upload">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input type="file" id="file" name="csvfile">
+                <button class="btn-go" id="upload-btn">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('go-btn').addEventListener('click', function() {
+            var month = document.getElementById('Month').value;
+            var grade = document.getElementById('Grade').value;
+            var subject = document.getElementById('Subject').value;
+
+            if (month === 'Month' || grade === 'Grade' || subject === 'Subject') {
+                alert("Please select all options");
+            } else {
+                document.getElementById('file-upload').style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>
