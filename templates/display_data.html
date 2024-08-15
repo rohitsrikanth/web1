@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Increment Variable</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        /*document.addEventListener('DOMContentLoaded', (event) => {
+            let data = JSON.parse('{{ data1 | tojson | safe }}');
+            let dataLen = data.length;  // Total number of items
+    
+            let iframeSources_1 = data.map(item => item['Link to the video in Manarkeni App']);
+            let iframeSources = data.map(item => item['Link to the Video 1']);
+    
+            let currentIndex = 0;
+            const iframe = document.getElementById('iframeCarousel');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const manarkeniTotal = document.getElementById('manarkeni-total');
+            const youtubeTotal = document.getElementById('youtube-total');
+    
+            // Set the total number of videos
+            manarkeniTotal.textContent = `/ ${iframeSources.length}`;
+            youtubeTotal.textContent = `/ ${iframeSources_1.length}`;
+    
+            function updateIframe() {
+                iframe.src = iframeSources[currentIndex];
+                prevBtn.disabled = (currentIndex === 0);
+                nextBtn.disabled = (currentIndex === iframeSources.length - 1);
+            }
+    
+            var indicate = document.getElementById('indic-1');
+            var vcount = 1;
+    
+            updateIframe();
+    
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    vcount--;
+                    indicate.textContent = vcount;
+                    updateIframe();
+                }
+            });
+    
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < iframeSources.length - 1) {
+                    currentIndex++;
+                    vcount++;
+                    indicate.textContent = vcount;
+                    updateIframe();
+                }
+            });
+    
+            let currentIndex_1 = 0;
+            const iframe_1 = document.getElementById('iframeCarousel-1');
+            const prevBtn_1 = document.getElementById('prevBtn1');
+            const nextBtn_1 = document.getElementById('nextBtn1');
+            var indicator = document.getElementById('indic');
+            var videocount = 1;
+    
+            function updateIframe_1() {
+                iframe_1.src = iframeSources_1[currentIndex_1];
+                prevBtn_1.disabled = (currentIndex_1 === 0);
+                nextBtn_1.disabled = (currentIndex_1 === iframeSources_1.length - 1);
+            }
+    
+            updateIframe_1();
+    
+            prevBtn_1.addEventListener('click', () => {
+                if (currentIndex_1 > 0) {
+                    currentIndex_1--;
+                    videocount--;
+                    indicator.textContent = videocount;
+                    updateIframe_1();
+                }
+            });
+    
+            nextBtn_1.addEventListener('click', () => {
+                if (currentIndex_1 < iframeSources_1.length - 1) {
+                    currentIndex_1++;
+                    videocount++;
+                    indicator.textContent = videocount;
+                    updateIframe_1();
+                }
+            });
+        });*/
+        document.addEventListener('DOMContentLoaded', (event) => {
+    let data = JSON.parse('{{ data1 | tojson | safe }}');
+
+    // Grouping the data by 'Topic Name'
+    let groupedData = data.reduce((acc, item) => {
+        if (!acc[item['Topic Name']]) {
+            acc[item['Topic Name']] = [];
+        }
+        acc[item['Topic Name']].push(item);
+        return acc;
+    }, {});
+
+    // Variables to manage the current topic and video index
+    let topics = Object.keys(groupedData);
+    let currentTopicIndex = 0;
+    let currentSubtopIndex = 0;
+    let currentVideoIndex = 0;
+    let topicsLen = topics.length;
+    var videoLinks = {};
+    let videoLen;
+
+
+    // DOM elements
+    const iframe = document.getElementById('iframeCarousel');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const manarkeniTotal = document.getElementById('manarkeni-total');
+    const youtubeTotal = document.getElementById('youtube-total');
+    const topicIndicator = document.getElementById('topic-d');
+    const videoIndicator = document.getElementById('indic');
+    const videoIndicator_1=document.getElementById('indic-1')
+    const subtopicIndicator = document.getElementById('subtopic-d');
+
+    const iframe_1 = document.getElementById('iframeCarousel-1');
+    const prevBtn_1 = document.getElementById('prevBtn1');
+    const nextBtn_1 = document.getElementById('nextBtn1');
+
+    const prevBtn_3 = document.getElementById('subtopic-prv-btn');
+    const nextBtn_3 = document.getElementById('subtopic-nxt-btn');
+
+    const prevBtn_2 = document.getElementById('topic-prv-btn');
+    const nextBtn_2 = document.getElementById('topic-nxt-btn');
+
+    const topicName = document.getElementById('topic-d')
+    const subtopicName = document.getElementById('subtopic-d')
+
+
+
+    function updateIframe_1() {
+        let currentTopic = topics[currentTopicIndex];
+        let currentGroup = groupedData[currentTopic];
+        iframe_1.src = currentGroup[currentSubtopIndex]['Link to the video in Manarkeni App'];
+        if (currentGroup[currentSubtopIndex]['Video availability in Manarkeni?'] === "No") {
+        document.getElementById('manarkeni-slider').style.display = 'none'; // Disable or hide the element
+    } else {
+        document.getElementById('manarkeni-slider').style.display = 'block'; // Enable or show the element
+    }
+
+        
+        // Update indicators
+        videoIndicator_1.textContent = `${currentVideoIndex + 1} /${currentGroup.length}`;
+        
+        // Disable/enable buttons
+        prevBtn_1.disabled = (currentVideoIndex === 0);
+        nextBtn_1.disabled = (currentVideoIndex === currentGroup.length - 1);
+    }
+
+    function updateIframe() {
+        let currentTopic = topics[currentTopicIndex];
+        let currentGroup = groupedData[currentTopic];
+        var videoLinks = {
+            1:currentGroup[currentSubtopIndex]['Link to the Video 1'],
+            2:currentGroup[currentSubtopIndex]['Link to the Video 2']
+        };
+        let videoLen=2
+        
+        iframe.src = videoLinks[currentVideoIndex+1] ; // Set iframe to the current video link
+        // Update indicators
+        videoIndicator.textContent = `${currentVideoIndex + 1} / ${videoLen}`;
+        //topicIndicator.textContent = `${currentTopicIndex + 1} / ${topicsLen}`;
+        
+        // Disable/enable buttons
+        prevBtn.disabled = (currentVideoIndex === 0);
+        nextBtn.disabled = (currentVideoIndex === videoLen - 1);
+    }
+
+    
+
+    function updateSubTop() {
+        let currentTopic = topics[currentTopicIndex];
+        let currentGroup = groupedData[currentTopic];
+        let subtopicLen = currentGroup.length;
+
+        if(subtopicName.textContent=currentGroup[currentSubtopIndex]['Subtopic Name'] === null){
+            subtopicName.style.display='none'
+        }else{
+            subtopicName.textContent=currentGroup[currentSubtopIndex]['Subtopic Name']
+            console.log(subtopicName.textContent)
+        }
+        //subtopicIndicator.textContent = `${currentSubtopIndex + 1} / ${subtopicLen}`;
+        updateIframe();
+        updateIframe_1();
+    }
+
+    function updateTopic() {
+        let currentTopic = topics[currentTopicIndex];
+        let currentGroup = groupedData[currentTopic];
+        let subtopicLen = currentGroup.length;
+        topicName.textContent=currentTopic
+        //manarkeniTotal.textContent = ` / ${subtopicLen}`;
+        //youtubeTotal.textContent = ` / ${subtopicLen}`;
+        
+        updateSubTop();
+    }
+
+    // Initial update
+    updateTopic();
+
+    prevBtn.addEventListener('click', () => {
+        if (currentVideoIndex > 0) {
+            currentVideoIndex--;
+        }
+        updateIframe();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentVideoIndex < 1) {
+            currentVideoIndex++;
+        }
+        updateIframe();
+    });
+
+    prevBtn_1.addEventListener('click', () => {
+        if (currentVideoIndex > 0) {
+            currentVideoIndex--;
+        }
+        updateIframe_1();
+    });
+
+    nextBtn_1.addEventListener('click', () => {
+        let currentGroup = groupedData[topics[currentTopicIndex]];
+        if (currentVideoIndex < currentGroup.length - 1) {
+            currentVideoIndex++;
+        }
+        updateIframe_1();
+    });
+
+    prevBtn_3.addEventListener('click', () => {
+        if (currentSubtopIndex > 0) {
+            currentSubtopIndex--;
+            currentVideoIndex = 0;
+        }
+        updateSubTop();
+    });
+
+    nextBtn_3.addEventListener('click', () => {
+        let currentTopic = topics[currentTopicIndex];
+        let currentGroup = groupedData[currentTopic];
+        if (currentSubtopIndex < currentGroup.length - 1) {
+            currentSubtopIndex++;
+            currentVideoIndex = 0;
+        }
+        updateSubTop();
+    });
+
+    prevBtn_2.addEventListener('click', () => {
+        if (currentTopicIndex > 0) {
+            currentTopicIndex--;
+            updateTopic();
+        }
+    });
+
+    nextBtn_2.addEventListener('click', () => {
+        if (currentTopicIndex < topicsLen - 1) {
+            currentTopicIndex++;
+            updateTopic();
+        }
+    });
+});
+
+
+    </script>
+    
+</head>
+<body>
+    <div class="container">
+        <div id="topic-sl-cont">
+            <div class="topic-info">
+                <div class="selecteds">
+                    <h4>Month:{{month}}</h4>
+                    <h4 id="month-d"></h4>
+                </div>
+                <div class="selecteds">
+                    <h4>Grade:{{grade}}</h4>
+                    <h4 id="grade-d"></h4>
+                </div>
+                <div class="selecteds">
+                    <h4>Subject:{{subject}}</h4>
+                    <h4 id="subj-d"></h4>
+                </div>
+                <div class="selecteds">
+                    <h4>Chapter:</h4>
+                    <h4 id="ch-d"></h4>
+                </div>
+                <div class="selecteds">
+                    <h4>Topic:</h4>
+                    <h4 id="topic-d">1</h4>
+                </div>
+            </div>
+            <div class="subtopic-slider">
+                <div class="subtopic-info" style="display: flex;">
+                    <h4>Subtopic:</h4>
+                    <h4 id="subtopic-d">1</h4>
+                </div>
+                <div id="sliders-cont" class="slider-container">
+                    
+                    <div class="carousel-container-manarkeni" id="manarkeni-slider">
+                        <h2>Resources From Manarkeni</h2>
+                        <div id="manarkeni-indi" class="carousel-indicator">
+                            <h5 id="indic-1" class="indicator"></h5>  <!--indicator for the number of videos-->
+                            <h5 id="manarkeni-total"></h5>
+                        </div>
+                        <button id="prevBtn1" class="carousel-btn" onclick="decrement('manarkeniIndex')">Previous video</button>
+                        <iframe id="iframeCarousel-1" width="560" height="315" src=""
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button id="nextBtn1" class="carousel-btn" onclick="increment('manarkeniIndex')">Next video</button>
+                    </div>
+
+                    <h2>Resources From YouTube</h2>
+                    <div id="youtube-indi" class="carousel-indicator">
+                        <h5 id="indic" class="indicator"></5>
+                        <h5 id="youtube-total"></h5>
+                    </div>
+                    <div class="carousel-container">
+                        <button id="prevBtn" class="carousel-btn" onclick="decrement('youtubeIndex')">Previous video</button>
+                        <iframe id="iframeCarousel" width="560" height="315" src=""
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <button id="nextBtn" class="carousel-btn" onclick="increment('youtubeIndex')">Next video</button>
+                    </div>
+                </div>
+                <div class="subtopic-btn">
+                <button id="subtopic-prv-btn" class="carousel-btn"><h5>Previous SubTopic</h5></button>
+                <button id="subtopic-nxt-btn" class="carousel-btn"><h5>Next SubTopic</h5></button>
+            </div>
+            </div>
+            <div class="topic-btn">
+                <button id="topic-prv-btn" class="carousel-btn" onclick="decrement('topicIndex')"><h5>Previous Topic</h5></button>
+                <button id="topic-nxt-btn" class="carousel-btn" onclick="increment('topicIndex')"><h5>Next Topic</h5></button>
+            </div>
+
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

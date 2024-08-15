@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic HTML Website</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 200px;
+
+
+
+        }
+
+        .select-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
+
+        .select-container select {
+            margin: 0 10px;
+        }
+
+        .btn-go {
+            font-size: 24px;
+            padding: 5px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #05386b;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .btn-go:hover {
+            background-color: #a7a4c9;
+        }
+
+        /*
+        .btnlogin-popup {
+            font-size: 16px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .btnlogin-popup:hover {
+            background-color: #3e8e41;
+        }
+            */
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <header>
+        <div class="windows-header">
+
+            <nav class="navigation">
+                <a href="#"><button class="Download">Download resources docx</button></a>
+                <select class="resource-selector" name="Order resources by" id="orderResourcesBy" >
+                    <option value="Month wise resources">Month wise resources</option>
+                    <option value=" Chapter wise resources">Chapter wise resources</option>
+                </select>
+            </nav>
+            <!--
+            <div class="btnloginp">
+                <a href="login.html"> <button class="btnlogin">Login</button></a>
+
+            </div>
+        -->
+        </div>
+        <div>
+            <nav class="navbar bg-body-tertiary fixed-top" id="navbar">
+                <div class="container-fluid">
+                    <img class="logo" src="./static/assets/images/tngovlogo.png">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" id="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                   <!-- <a class="nav-link" href="#">About</a>-->
+                                   <a href="#"><button class="Download">Download resources docx</button></a>
+                                   
+                                </li>
+                                <li class="nav-item">
+                                   <!-- <a class="nav-link" href="#">Service</a>-->
+                                    <select class="resource-selector" name="Order resources by" >
+                                        <option value="Month wise resources">Month wise resources</option>
+                                        <option value=" Chapter wise resources">Chapter wise resources</option>
+                                    </select>
+                                </li>
+                               <!-- <li class="nav-item">
+                                    <a href="login.html"><button class="btnlogin">LOGIN</button></a>
+                                </li>-->
+
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+    </header>
+
+    <div class="container">
+        <div class="select-container">
+            <form action="{{ url_for('get_data') }}" method="get">
+            <select class="sel" id="Month" name="Month">
+                <option value="Month">MONTH</option>
+                <option value="January">January</option>
+                <option value="Febraury">Febraury</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">Jund</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+            </select>
+            <select class="sel" id="Grade" name="Grade">
+                <option value="Grade">GRADE</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+            <select class="sel" id="Subject" name="Subject">
+                <option value="Subject">SUBJECT</option>
+                <option value="Maths">Maths</option>
+                <option value="English">English</option>
+                <option value="Physics">Physics</option>
+                <option value="Tamil">Tamil</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Computer Science">Computer Science</option>
+            </select>
+            <select class="sel" id="Chapter" name="Chapter">
+                <option value="Chapter">CHAPTER</option>
+                <option value="Chapter 1">Chapter 1</option>
+                <option value="Chapter 2">Chapter 2</option>
+                <option value="Chapter 3">Chapter 3</option>
+                <option value="Chapter 4">Chapter 4</option>
+                <option value="Chapter 5">Chapter 5</option>
+                <option value="Chapter 6">Chapter 6</option>
+                <option value="Chapter 7">Chapter 7</option>
+                <option value="Chapter 8">Chapter 8</option>
+                <option value="Chapter 9">Chapter 9</option>
+                <option value="Chapter 10">Chapter 10</option>
+            </select>
+            
+        </div>
+
+
+        <button id="gobtn" class="btn-go">Go</button>
+        </form>
+        <div class="topic-slider" id="topic-sl-cont">
+
+            <div class="topic-info">
+                <div class="selecteds">
+                    <h4>Month:</h4>
+                    <h4 id="month-d"></h4>
+                </div>
+                <div class="selecteds">
+                    <h4>Grade:</h4>
+                    <h4 id="grade-d"></h4>
+                </div>
+                <div class="selecteds">
+                    <h4>Subject:</h4>
+                    <h4 id="subj-d"></h4>
+                </div>
+                <div class="selecteds">
+                    <h4>Chapter:</h4>
+                    <h4 id="ch-d"></h4>
+                </div>
+                <div class="selecteds">
+                    <h4>Topic:</h4>
+                    <h4 id="topic-d"></h4>
+                </div>
+            </div>
+            <div class="subtopic-slider">
+                <div class="subtopic-info" style="display: flex;">
+                    <h4>Subtopic:</h4>
+                    <h4 id="subtopic-d"></h4>
+                </div>
+            <div id="sliders-cont" class="slider-container">
+                <h2>Resources From Manarkeni</h2>
+                <div class="carousel-container-manarkeni">
+                    <div id="manarkeni-indi" class="carousel-indicator">
+                          <h5 id="indic"class="indicator"> 1</h5>
+                          <h5>/3</h5>
+                    </div>
+
+                    <button id="prevBtn1" class="carousel-btn">
+                        
+                            Previous video 
+                    </button>
+                    <iframe id="iframeCarousel-1" width="560" height="315" src="https://manarkeni.tnschools.gov.in/"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        
+                    <button id="nextBtn1" class="carousel-btn">
+                        Next video
+                    </button>
+                   
+                </div>
+
+                <h2>Resources From Youtube</h2>
+                <div id="youtube-indi" class="carousel-indicator">
+                    <h5 id="indic-1"class="indicator"> 1</h5>
+                    <h5>/3</h5>
+              </div>
+
+                <div class="carousel-container">
+                    <button id="prevBtn" class="carousel-btn">
+                        
+                            Previous video
+                    </button>
+                    <iframe id="iframeCarousel" width="560" height="315" src="" title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                    <button id="nextBtn" class="carousel-btn">
+                        Next video
+                    </button>
+                </div>
+            </div>
+            <div class="subtopic-btn">
+                <button id="subtopic-prv-btn" class="carousel-btn">
+                    <h5>
+                        Previous SubTopic </h5>
+                </button>
+                <button id="subtopic-nxt-btn" class="carousel-btn">
+                    <h5>
+                        Next SubTopic </h5>
+                </button>
+            </div>
+            </div>
+            <div class="topic-btn">
+                <button id="topic-prv-btn" class="carousel-btn">
+                    <h5>
+                        Previous Topic </h5>
+                </button>
+                <button id="topic-nxt-btn" class="carousel-btn">
+                    <h5>
+                        Next Topic </h5>
+                </button>
+            </div>
+        </div>
+       
+        
+
+        <div class="footer">
+
+            <h5 style="margin-top:50px;">Contact Us</h5>
+            <h5 style="margin-top:20px;">About</h5>
+            <div class="btnloginp">
+                <a href="login.html"> <button class="btnlogin">Login</button></a>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <!--
+    <div class="videocarousel">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item ">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/8x8JhwCh5cs?si=q-aPacNfLuBD_58U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+              <div class="carousel-item active">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/1F3hm6MfR1k?si=R3ZpRawj0sxdlY_q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+              <div class="carousel-item">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/6xqNk5Sf5jo?si=w_bqtjzmdKQNT4pO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>  
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+    </div>
+-->
+
+
+
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="/static/index.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+        const resourceSelector = document.querySelector('.resource-selector');
+        const chapterDropdown = document.getElementById('Chapter');
+    
+        resourceSelector.addEventListener('change', () => {
+            if (resourceSelector.value.trim() === 'Chapter wise resources') {
+                chapterDropdown.style.display = 'none';
+            } else {
+                chapterDropdown.style.display = 'inline-block';
+            }
+        });
+    });
+
+
+    </script>
+    
+    
+
+</body>
+
+</html>
